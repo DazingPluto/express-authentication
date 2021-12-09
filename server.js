@@ -7,7 +7,7 @@ const session = require('express-session');
 const passport = require('./config/ppConfig');
 const isLoggedIn = require('./middleware/isLoggedIn');
 const axios = require('axios');
-const {Anime, Genre, Manga, Producer}
+const {Anime, Genre, Manga, Producer} = require ('./models');
 
 const SECRET_SESSION = process.env.SECRET_SESSION;
 console.log(SECRET_SESSION);
@@ -29,19 +29,76 @@ app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 
-Producer.create({
-  name:'Kyoto Animation',
-  staff: 'Hideaki Hatta',
-  awards: '2020 WIA Diversity Award for Corporate Achievement',
-  awards: 1
-  })
-  .then(function(newProducer){
-      console.log('NEW PRODUCER ADDED');
-      console.log(newProducer.toJSON());
-  })
-  .catch(function(error){
-      console.log('Error creating player', error);
-  });
+// Producer.create({
+//   name:'Kyoto Animation',
+//   staff: 'Hideaki Hatta',
+//   awards: '2020 WIA Diversity Award for Corporate Achievement',
+//   awards: 1
+//   })
+//   .then(function(newProducer){
+//       console.log('NEW PRODUCER ADDED');
+//       console.log(newProducer.toJSON());
+//   })
+//   .catch(function(error){
+//       console.log('Error creating player', error);
+//   });
+// Producer.create({
+//   name:'Madhouse',
+//   staff: 'Masao Maruyama',
+//   awards: 'Four Grand Prizes at the Animtaion Division of Japan',
+//   awards: 4
+//   })
+//   .then(function(newProducer){
+//       console.log('NEW PRODUCER ADDED');
+//       console.log(newProducer.toJSON());
+//   })
+//   .catch(function(error){
+//       console.log('Error creating player', error);
+//   });
+  
+// Producer.create({
+//   name:'Studio Bones',
+//   staff: 'Hiroshi Osaka and Toshihiro Kawamoto',
+//   awards: 'Cruchy Roll Anime Award Winners',
+//   awards: 4
+//   })
+//   .then(function(newProducer){
+//       console.log('NEW PRODUCER ADDED');
+//       console.log(newProducer.toJSON());
+//    })
+//   .catch(function(error){
+//       console.log('Error creating player', error);
+//   });
+
+//   Producer.create({
+//     name:'J.C Staff',
+//     staff: 'Tomoyuki Miyata',
+//     awards: '',
+//     awards: 0
+//     })
+//     .then(function(newProducer){
+//         console.log('NEW PRODUCER ADDED');
+//         console.log(newProducer.toJSON());
+//     })
+//     .catch(function(error){
+//         console.log('Error creating player', error);
+//   });
+
+//   Producer.create({
+//     name:'Studio Bones',
+//     staff: 'Hiroshi Osaka and Toshihiro Kawamoto',
+//     awards: 'Cruchy Roll Anime Award Winners',
+//     awards: 4
+//     })
+//     .then(function(newProducer){
+//         console.log('NEW PRODUCER ADDED');
+//         console.log(newProducer.toJSON());
+//     })
+//     .catch(function(error){
+//         console.log('Error creating player', error);
+//   });
+
+    
   
 
 app.use((req, res, next) => {
@@ -84,7 +141,14 @@ app.get('/companyPage', function(req, res){
 })
 
 app.get('/writterPage', function( req, res){
-  
+  Producer.findAll()
+  .then(function(response){
+    res.render('home/index', { producer: response})
+    console.log(response);
+  })
+  .catch(function(error){
+    console.log('ERROR!', error);
+  })
 })
 
 
