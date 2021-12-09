@@ -28,23 +28,25 @@
     "connect-flash": "^0.1.1",
     "dotenv": "^8.2.0",
     "ecrypt": "^2.0.4",
-    "ejs": "^3.1.5",
+    "ejs": "^3.1.6",
     "express": "^4.17.1",
     "express-ejs-layouts": "^2.5.0",
     "express-session": "^1.17.2",
     "faker": "^5.5.3",
+    "jkanime": "^2.0.4",
     "method-override": "^3.0.0",
     "morgan": "^1.10.0",
     "node-fetch": "^2.6.2",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
-    "pg": "^8.5.1",
-    "sequelize": "^6.3.5",
+    "pg": "^8.7.1",
+    "sequelize": "^6.11.0",
     "unsplash-js": "^7.0.15"
   },
   "devDependencies": {
     "chai": "^4.2.0",
     "mocha": "^8.2.1",
     "supertest": "^6.0.1"
-  }
+  },
+  "keywords": []
 }

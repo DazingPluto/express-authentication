@@ -1,11 +1,11 @@
 {
   "development": {
-    "database": "express_authentication_development",
+    "database": "animepoop",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "test": {
-    "database": "express_authentication_test",
+    "database": "animepoop_test",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
