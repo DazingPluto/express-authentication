@@ -11,7 +11,7 @@
         <% let a = animes[index]; %> 
         <p><%= a.title %></p>
         <img src="<%= a.image_url %>" alt="">
-        <a href="<%= a.video_url %>" target="_blank" rel="noopener noreferrer">Click to Watch</a>
+        <video src="<% a.video_url %>"></video>
         <hr>
     <% } %>
 </body>
