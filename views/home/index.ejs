@@ -7,47 +7,11 @@
     <title>HOME</title>
 </head>
 <body>
-    <!-- a few different animes on the page -->
-        <!-- add the first 5 animes on the page -->
-        <!-- Anime (model) -->
-    <h1>Animes</h1>
-    <% for( let index = 0; index < animeVideos.length; index++ ) { %>
-        <% let animeItem = animeVideos[index] %> 
-        <% animeItem = animeItem.toJSON() %> 
-        <div>
-            <p><%= animeItem.episodes.title %><p>
-            <p><%= animeItem.episodes.url%><p>
-        </div>
-        <hr>
-    <% } %> 
-
-    <!-- a few genres on the page -->
-        <!-- add the first 5 genres  -->
-        <!-- Genre (model)  -->
-    <h1>Genre</h1>
-    <% for( let index = 0; index < genres.length; index++ ) { %>
-        <% let genreItem = genres[index] %> 
-        <% genreItem = genreItem.toJSON() %> 
-        <div>
-            <p><%= genreItem.type %> </div><p>
-        </div>
-        <hr>
-    <% } %> 
-
-    <!-- a few producers on the page -->
-        <!-- add the first 5 producers on the page -->
-        <!-- Producer (model) -->
-    <h1>Producers</h1>
-    <% for( let index = 0; index < producers.length; index++ ) { %>
-        <% let producerItem = producers[index] %> 
-        <% producerItem = producerItem.toJSON() %> 
-        <div>
-            <p><%= producerItem.name %> </p>
-            <p><%= producerItem.staff %> </p>
-            <p><%= producerItem.awards %> </p>
-        </div>
-        <hr>
-    <% } %> 
-
+    <form action="http://localhost:3000/manga/show">
+        <button type="submit">Manga</button>
+    </form>
+    <form action="http://localhost:3000/anime/show">
+        <button type="submit">Anime</button>
+    </form>
 </body>
 </html>

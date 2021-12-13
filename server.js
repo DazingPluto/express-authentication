@@ -8,6 +8,9 @@ const passport = require('./config/ppConfig');
 const isLoggedIn = require('./middleware/isLoggedIn');
 const axios = require('axios');
 const {Anime, Genre, Manga, Producer, Episodes, Trailors} = require ('./models');
+const router = require('./controllers/auth');
+const { object } = require('webidl-conversions');
+let animeArray = [];
 
 const SECRET_SESSION = process.env.SECRET_SESSION;
 console.log(SECRET_SESSION);
@@ -38,48 +41,20 @@ app.use((req, res, next) => {
 
 app.get('/', (req, res) => {
   // find All anime
-  axios.get('https://api.jikan.moe/v3/anime/11741/videos')
+  axios.get('https://api.jikan.moe/v3/top/anime')
     .then(function(response) {
-      console.log(response.data);
+      console.log('RESPONSING FOR EPISODES RIGHT HERE', response.data.top);
     // find all genres
     Genre.findAll()
     .then(function(genreList) {
       // find all producers
       Producer.findAll()
       .then(function(produerList) {
-        res.render('home/index', { animeVideos: response.data, genres: genreList, producers: produerList });
+        res.render('home/index', { animeVideos: response.data.top, genres: genreList, producers: produerList });
       })
     })
   })
 })
-
-
-// app.get('/', function(req, res){
-//   axios.get('https://api.jikan.moe/v3/anime/11741/videos')
-//     .then(function(response) {
-//           console.log(response.data);
-//           res.render('animes/index', {animeVideos: response.data});
-//       })
-//       .catch(function(err){
-//           console.log("ERROR!", err);
-//       })
-// })
-
-// app.get('/anime', (req, res) => {
-//   Anime.findOne({where :{title: 'Naruto'}})
-//   .then(function(animeChosen){
-//     // show episodes
-//     Episodes.findAll()
-//       .then(function(episodeChosen){
-//       //show trailor
-//       Trailors.findAll() 
-//       .then(function(trailorChosen){
-//         res.render('animes/index', { anime: animeChosen, episode: episodeChosen, trailor: trailorChosen});
-//       })
-//     })
-//   })
-// })
-
 // Add this above /auth controllers
 app.get('/profile', isLoggedIn, (req, res) => {
   const { id, name, email } = req.user.get(); 
@@ -90,22 +65,24 @@ app.get('/profile', isLoggedIn, (req, res) => {
 app.use('/auth', require('./controllers/auth'));
 
 app.get('/anime/show', function(req, res){
-  axios.get('https://api.jikan.moe/v3/anime/1/videos')
-    .then(function(response) {
-          console.log(response.data.episodes);
-          res.render('animes/index', {animes: response.data.episodes});
+  axios.get('https://api.jikan.moe/v3/top/anime')
+  .then(function(response) {
+    //console.log('RESPONSING FOR EPISODES RIGHT HERE', response.data.top);
+          res.render('animes/index', {animeTop: response.data.top});
       })
       .catch(function(err){
           console.log("ERROR!", err);
       })
 })
-
-app.get('/home', function(req, res){
-  
-})
-
-app.get('/companyPage', function(req, res){
-
+app.get('/manga/show', function(req, res){
+  axios.get('https://api.jikan.moe/v3/top/manga')
+  .then(function(response){
+    //console.log('REPONDING RIGHT HERE!!!!!!!!!!!!!!!!', response);
+    res.render('manga/index', {mangaTop: response.data.top});
+  })
+  .catch(function(err){
+    console.log('ERROR', err);
+  })
 })
 
 app.get('/writterPage', function( req, res){
@@ -118,6 +95,44 @@ app.get('/writterPage', function( req, res){
     console.log('ERROR!', error);
   })
 })
+
+// app.get('/testing', function(req, res){
+//   axios.get('https://api.jikan.moe/v3/top/anime')
+//   .then(function(response) {
+//     let animeArray = [];
+//     let objectArray = response.data.top;
+//     let animeIndex = response.data.top.mal_id;
+//     console.log('HERYYyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy', response.data.top[1].mal_id);
+//     for(let i = 0; i < 50 ; i++){
+        
+//         animeArray.push(Number(objectArray[i].mal_id));
+//         console.log(animeArray);
+//         }
+//       })
+//       .catch(function(err){
+//           console.log("ERROR!", err);
+//   })
+// })
+
+app.get('/anime/show/:id', function(req,res){
+  //req.params.id = animeArray[1];
+  let id = Number(req.params.id);
+  let animeLink = ('https://api.jikan.moe/v3/anime/'+id+'/videos')
+  axios.get(animeLink)
+  .then(function(response) {
+       //res.render('animePage/index', {fullmetal: response.data.episodes})
+       //console.log(response.data.episodes);
+       axios.get('https://api.jikan.moe/v3/anime/'+id+'/')
+       .then(function(resTwo){
+         //console.log('DATA RIGHT HEREEEEEEEEEEEEE', resTwo.data);
+        res.render('animePage/index', {fullmetal: response.data.episodes, fullmetalInfo: resTwo.data})
+       })
+      })
+      .catch(function(err){
+          console.log("ERROR!", err);
+
+    })
+  })
 
 
 const PORT = process.env.PORT || 3000;
@@ -139,5 +154,29 @@ function makeGetRequest(path) {
 
   
 
-// makeGetRequest('https://api.jikan.moe/v3/anime/1/videos')
-makeGetRequest('https://api.jikan.moe/v3/anime/11741/videos')
+//makeGetRequest('https://api.jikan.moe/v3/top/anime')
+function getIdArray(){
+  axios.get('https://api.jikan.moe/v3/top/anime')
+    .then(function(response) {
+      let objectArray = response.data.top;
+      //let animeIndex = response.data.top.mal_id;
+      //console.log('HERYYyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy', response.data.top[1].mal_id);
+      for(let i = 0; i < 50 ; i++){
+        
+          animeArray.push(Number(objectArray[i].mal_id));
+          console.log(animeArray);
+            }
+
+          })
+        .catch(function(err){
+            console.log("ERROR!", err);
+        })
+      }
+
+      getIdArray();
+      console.log(animeArray);
+  
+
+
+
+

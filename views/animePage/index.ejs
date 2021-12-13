@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Animes</title>
+    <title><%= fullmetalInfo.title %>  </title>
 </head>
 <body>
-    <h1>Anime</h1>
-    <% for( let index = 0; index < animeTop.length; index++ ) { %>
-        <% let a = animeTop[index]; %> 
+    <h1><%= fullmetalInfo.title %> </h1>
+    <% for( let index = 0; index < fullmetal.length; index++ ) { %>
+        <% let a = fullmetal[index]; %> 
         <p><%= a.title %></p>
         <a href="">
             <img src="<%= a.image_url %>" alt="">
