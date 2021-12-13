@@ -96,35 +96,16 @@ app.get('/writterPage', function( req, res){
   })
 })
 
-// app.get('/testing', function(req, res){
-//   axios.get('https://api.jikan.moe/v3/top/anime')
-//   .then(function(response) {
-//     let animeArray = [];
-//     let objectArray = response.data.top;
-//     let animeIndex = response.data.top.mal_id;
-//     console.log('HERYYyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy', response.data.top[1].mal_id);
-//     for(let i = 0; i < 50 ; i++){
-        
-//         animeArray.push(Number(objectArray[i].mal_id));
-//         console.log(animeArray);
-//         }
-//       })
-//       .catch(function(err){
-//           console.log("ERROR!", err);
-//   })
-// })
-
-app.get('/anime/show/:id', function(req,res){
-  //req.params.id = animeArray[1];
+app.get('/anime/:id', function(req,res){
+  
   let id = Number(req.params.id);
   let animeLink = ('https://api.jikan.moe/v3/anime/'+id+'/videos')
   axios.get(animeLink)
   .then(function(response) {
-       //res.render('animePage/index', {fullmetal: response.data.episodes})
-       //console.log(response.data.episodes);
+       
        axios.get('https://api.jikan.moe/v3/anime/'+id+'/')
        .then(function(resTwo){
-         //console.log('DATA RIGHT HEREEEEEEEEEEEEE', resTwo.data);
+         
         res.render('animePage/index', {fullmetal: response.data.episodes, fullmetalInfo: resTwo.data})
        })
       })
@@ -159,8 +140,6 @@ function getIdArray(){
   axios.get('https://api.jikan.moe/v3/top/anime')
     .then(function(response) {
       let objectArray = response.data.top;
-      //let animeIndex = response.data.top.mal_id;
-      //console.log('HERYYyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy', response.data.top[1].mal_id);
       for(let i = 0; i < 50 ; i++){
         
           animeArray.push(Number(objectArray[i].mal_id));

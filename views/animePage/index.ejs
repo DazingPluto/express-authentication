@@ -9,10 +9,10 @@
 <body>
     <h1><%= fullmetalInfo.title %> </h1>
     <% for( let index = 0; index < fullmetal.length; index++ ) { %>
-        <% let a = fullmetal[index]; %> 
-        <p><%= a.title %></p>
-        <a href="">
-            <img src="<%= a.image_url %>" alt="">
+            <% let a = fullmetal[index]; %>
+            <p><%= a.title %></p>
+            <a href=''>
+                <img src="<%= a.image_url %>" alt="">
         </a>
         <hr>
     <% } %>
