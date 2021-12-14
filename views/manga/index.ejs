@@ -12,7 +12,9 @@
         <% let animeItem = mangaTop[index] %>
         <div>
             <p><%= animeItem.title %><p>
-            <img src="<%= animeItem.image_url %>" alt="">
+            <a href="http://localhost:3000/manga/<%=animeItem.mal_id%>">
+                <img src="<%= animeItem.image_url %>" alt="">
+            </a>    
         </div>
         <hr>
     <% } %> 

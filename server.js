@@ -115,6 +115,41 @@ app.get('/anime/:id', function(req,res){
     })
   })
 
+  app.get('/manga/:id', function(req,res){
+  
+    let id = Number(req.params.id);
+    let mangaLink = ('https://api.jikan.moe/v3/manga/'+id+'/characters')
+    axios.get(mangaLink)
+    .then(function(response) {
+          console.log(response.data);
+         
+         axios.get('https://api.jikan.moe/v3/manga/'+id+'/')
+         .then(function(resTwo){
+           
+          res.render('mangaPage/index', {fullManga: response.data.characters, fullMangaInfo: resTwo.data})
+         })
+        })
+        .catch(function(err){
+            console.log("ERROR!", err);
+  
+      })
+    })
+    app.get('/mangaCharacters/:id', function(req,res){
+  
+      let id = Number(req.params.id);
+      let mangaLink = ('https://api.jikan.moe/v3/manga/'+id+'/characters')
+      axios.get(mangaLink)
+      .then(function(response) {
+            console.log(response.data);
+            res.render('mangaPage/index', {fullManga: response.data.characters})
+          })
+          .catch(function(err){
+              console.log("ERROR!", err);
+    
+        })
+      })
+    
+
 
 const PORT = process.env.PORT || 3000;
 const server = app.listen(PORT, () => {
@@ -136,24 +171,24 @@ function makeGetRequest(path) {
   
 
 //makeGetRequest('https://api.jikan.moe/v3/top/anime')
-function getIdArray(){
-  axios.get('https://api.jikan.moe/v3/top/anime')
-    .then(function(response) {
-      let objectArray = response.data.top;
-      for(let i = 0; i < 50 ; i++){
+// function getIdArray(){
+//   axios.get('https://api.jikan.moe/v3/top/anime')
+//     .then(function(response) {
+//       let objectArray = response.data.top;
+//       for(let i = 0; i < 50 ; i++){
         
-          animeArray.push(Number(objectArray[i].mal_id));
-          console.log(animeArray);
-            }
+//           animeArray.push(Number(objectArray[i].mal_id));
+//           console.log(animeArray);
+//             }
 
-          })
-        .catch(function(err){
-            console.log("ERROR!", err);
-        })
-      }
+//           })
+//         .catch(function(err){
+//             console.log("ERROR!", err);
+//         })
+//       }
 
-      getIdArray();
-      console.log(animeArray);
+//       getIdArray();
+//       console.log(animeArray);
   
 
 

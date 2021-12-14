@@ -4,16 +4,21 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="/functions.js"></script>
     <title><%= fullmetalInfo.title %>  </title>
 </head>
-<body>
+<body onload="loadComments()">
+    <div class="commentSection" id="card mb-2">
+
+    </div>
     <h1><%= fullmetalInfo.title %> </h1>
+    <div><img src="<%=fullmetalInfo.image_url%>" alt=""></div>
     <% for( let index = 0; index < fullmetal.length; index++ ) { %>
             <% let a = fullmetal[index]; %>
             <p><%= a.title %></p>
-            <a href=''>
-                <img src="<%= a.image_url %>" alt="">
-        </a>
+            <a href="<%= a.url%>">
+            <img src="<%= a.image_url %>" alt="">
+            </a>
         <hr>
     <% } %>
 </body>
