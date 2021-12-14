@@ -1,0 +1,12 @@
+.headerBar{
+    max-width: 100%;
+    width: 100%;
+    padding: 80px;
+    background-color: lightgray;
+    border-bottom: 10px solid black;
+    position: fixed;
+}
+.commentSection{
+    text-align: center;
+    font-size: 100px;
+}

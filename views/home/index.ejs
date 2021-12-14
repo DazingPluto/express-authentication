@@ -4,14 +4,27 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/homePage.css">
     <title>HOME</title>
 </head>
 <body>
+    <h1 class='head'>Pick Your Top 50!</h1>
+    <% for( let index = 0; index < 2; index++ ) { %>
+        <div class='pictureBox'>
+            <% let a = animeVideos[index]; %> 
+            <a href="">
+                <img src="<%= a.image_url %>" alt="">
+            </a>
+            <hr>
+        <% } %>
+        </div>
+    <div class='buttonBox'>
     <form action="http://localhost:3000/manga/show">
-        <button type="submit">Manga</button>
+        <button class='button'  type="submit">Manga</button>
     </form>
     <form action="http://localhost:3000/anime/show">
-        <button type="submit">Anime</button>
+        <button class='button' type="submit">Anime</button>
     </form>
+    </div>
 </body>
 </html>
