@@ -5,15 +5,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="/functions.js"></script>
-    <link rel="stylesheet" href="/public/css/animePage.css">
+    <link rel="stylesheet" href="/css/animeLink.css">
     <title><%= fullmetalInfo.title %>  </title>
 </head>
 <body>
     <div class="commentSection" id="card mb-2">
 
     </div>
+    <div class= 'header'>
     <h1 class='animeTitle'><%= fullmetalInfo.title %> </h1>
-    <div><img src="<%=fullmetalInfo.image_url%>" alt=""></div>
+    <img class='image' src="<%=fullmetalInfo.image_url%>" alt=""></div>
     <% for( let index = 0; index < fullmetal.length; index++ ) { %>
             <% let a = fullmetal[index]; %>
             <p><%= a.title %></p>
