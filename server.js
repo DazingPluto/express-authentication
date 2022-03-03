@@ -22,9 +22,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(__dirname + '/public'));
 app.use(layouts);
 app.use(session({
-  secret: SECRET_SESSION,    // What we actually will be giving the user on our site as a session cookie
-  resave: false,             // Save the session even if it's modified, make this false
-  saveUninitialized: true    // If we have a new session, we save it, therefore making that true
+  secret: SECRET_SESSION,    
+  resave: false,             
+  saveUninitialized: true    
 }));
 
 app.use(flash());
@@ -40,14 +40,14 @@ app.use((req, res, next) => {
 });
 
 app.get('/', (req, res) => {
-  // find All anime
+  
   axios.get('https://api.jikan.moe/v3/top/anime')
     .then(function(response) {
       console.log('RESPONSING FOR EPISODES RIGHT HERE', response.data.top);
-    // find all genres
+    
     Genre.findAll()
     .then(function(genreList) {
-      // find all producers
+      
       Producer.findAll()
       .then(function(produerList) {
         res.render('home/index', { animeVideos: response.data.top, genres: genreList, producers: produerList });
@@ -55,19 +55,19 @@ app.get('/', (req, res) => {
     })
   })
 })
-// Add this above /auth controllers
+
 app.get('/profile', isLoggedIn, (req, res) => {
   const { id, name, email } = req.user.get(); 
   res.render('profile', { id, name, email });
 });
 
-// controllers
+
 app.use('/auth', require('./controllers/auth'));
 
 app.get('/anime/show', function(req, res){
   axios.get('https://api.jikan.moe/v3/top/anime')
   .then(function(response) {
-    //console.log('RESPONSING FOR EPISODES RIGHT HERE', response.data.top);
+   
           res.render('animes/index', {animeTop: response.data.top});
       })
       .catch(function(err){
@@ -77,7 +77,7 @@ app.get('/anime/show', function(req, res){
 app.get('/manga/show', function(req, res){
   axios.get('https://api.jikan.moe/v3/top/manga')
   .then(function(response){
-    //console.log('REPONDING RIGHT HERE!!!!!!!!!!!!!!!!', response);
+    
     res.render('manga/index', {mangaTop: response.data.top});
   })
   .catch(function(err){
@@ -170,26 +170,7 @@ function makeGetRequest(path) {
 
   
 
-//makeGetRequest('https://api.jikan.moe/v3/top/anime')
-// function getIdArray(){
-//   axios.get('https://api.jikan.moe/v3/top/anime')
-//     .then(function(response) {
-//       let objectArray = response.data.top;
-//       for(let i = 0; i < 50 ; i++){
-        
-//           animeArray.push(Number(objectArray[i].mal_id));
-//           console.log(animeArray);
-//             }
 
-//           })
-//         .catch(function(err){
-//             console.log("ERROR!", err);
-//         })
-//       }
-
-//       getIdArray();
-//       console.log(animeArray);
-  
 
 
 

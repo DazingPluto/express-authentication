@@ -8,13 +8,16 @@
     <title>HOME</title>
 </head>
 <body>
-    <% if (!currentUser) { %>
-        <li><a href="/auth/signup">Signup</a></li>
-        <li><a href="/auth/login">Login</a></li>
-    <% } else { %>
-        <li><a href="/auth/logout">Logout</a></li>
-        <li><a href="/profile">Profile</a></li>
-    <% } %>
+    <div className="userInformation">
+
+        <% if (!currentUser) { %>
+            <li><a href="/auth/signup">Signup</a></li>
+            <li><a href="/auth/login">Login</a></li>
+        <% } else { %>
+            <li><a href="/auth/logout">Logout</a></li>
+            <li><a href="/profile">Profile</a></li>
+        <% } %>
+    </div>
     
     <h1 class='head'>Pick Your Top 50!</h1>
     <% for( let index = 0; index < 2; index++ ) { %>
